@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.DebugGraphics;
 
 /**
  * Servlet implementation class Inscription
@@ -22,19 +23,23 @@ public class Inscription extends HttpServlet {
 	private Vector invites = new Vector();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType( "text/html" );
-		PrintWriter out = response.getWriter();
-		ServletContext contexte = getServletContext();
-		out.println("<FORM ACTION='Inscription' METHOD='get'>");
-		out.println("<INPUT NAME='nom' TYPE='text'/>");
-		out.println("<INPUT TYPE='submit' VALUE='nouvel inscrit'/>" );
-		out.println("</FORM>");
-		
-		out.println("<FORM ACTION='Invites' METHOD='get'>");
-		out.println("<INPUT TYPE='submit' VALUE='List nouvel inscrit'/>" );
-		out.println("</FORM>");
-		invites.add(request.getParameter("nom"));
-		contexte.setAttribute("invites",invites);
+		try {
+			response.setContentType( "text/html" );
+			PrintWriter out = response.getWriter();
+			ServletContext contexte = getServletContext();
+			out.println("<FORM ACTION='Inscription' METHOD='get'>");
+			out.println("<INPUT NAME='nom' TYPE='text'/>");
+			out.println("<INPUT TYPE='submit' VALUE='nouvel inscrit'/>" );
+			out.println("</FORM>");
+			
+			out.println("<FORM ACTION='Invites' METHOD='get'>");
+			out.println("<INPUT TYPE='submit' VALUE='Liste nouvel inscrit'/>" );
+			out.println("</FORM>");
+			invites.add(request.getParameter("nom"));
+			contexte.setAttribute("invites",invites);
+		} catch (Exception ex) {
+			System.out.println(ex.toString());
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		// TODO Auto-generated method stub
